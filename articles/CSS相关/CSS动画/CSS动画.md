@@ -146,27 +146,45 @@ animation动画包括两个部分：配置动画细节（描述动画的样式�
 
 - animation-delay：动画延时时间，单位是秒或者毫秒。
 
-- animation-iteration-count：
+- animation-iteration-count：定义动画在结束前运行的次数
 
-- animation-direction：设置动画在每次运行完后是反向运行还是重新回到开始位置重复运行。
+  > animation-iteration-count: 1; // 默认值为1，可以用小数定义循环，来播放动画周期的一部分：例如，0.5将播放到动画周期的一半。不可为负值。
+  >
+  > animation-iteration-count: infinite; // 无限循环播放动画
+
+- animation-direction：设置动画是否反向播放。
 
   >animation-direction: normal; // 默认值，动画结束后重置到起点
   >
-  >animation-direction: reverse; // 反向运行动画，每周期内
+  >animation-direction: reverse; // 反向运行动画
   >
-  >animation-direction: alternate; // 动画交替正方向运行
+  >animation-direction: alternate; // 动画交替正方向运行。反向时，动画按步回退，同时带有时间功能的函数也反向，比如ease-in变成ease-out
   >
-  >animation-direction: alternate-reverse; //
+  >animation-direction: alternate-reverse; // 反向交替，反向开始交替（第一次运行时是反向的，然后下一次是正向，依次循环）
 
-- animation-fill-mode：
+- animation-fill-mode：设置CSS动画在执行之前和之后如何将样式应用于其目标
 
-- animation-play-state：
+  > animation-fill-mode: none; // 当动画未执行时，动画不会将任何样式应用于目标
+  >
+  > animation-fill-mode: forwards; // 当动画完成后，保持最后一个属性值（在最后一个关键帧中定义）
+  >
+  > animation-fill-mode: backwards; // 在 animation-delay 所指定的一段时间内，在动画显示之前，应用开始属性值（在第一个关键帧中定义）
+  >
+  > animation-fill-mode: both; // 动画将遵循`forwards`和`backwards`的规则，从而在两个方向上扩展动画属性
+
+- animation-play-state：定义一个动画是否运行或者暂停。可以通过查询它来确定动画是否正在运行。另外，它的值可以被设置为暂停和恢复的动画的重放。
+
+  > animation-play-state：running; // 当前动画正在运行，默认值
+  >
+  > animation-play-state：pause; // 当前动画已停止
 
 
 
 ### keyframes（定义动画序列）
 
+通过@keyframes建立两个或者两个以上关键帧来实现定义动画序列，每一个关键帧都描述了在给定时间点上如何渲染。
 
+关键帧使用百分比来指定动画发生的时间点，0%是第一时间点，100%是最终时间点，这两个时间点还有别名from和to。
 
 
 
