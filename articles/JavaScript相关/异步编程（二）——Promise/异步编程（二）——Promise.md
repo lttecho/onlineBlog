@@ -2,6 +2,33 @@
 
 ## Promise的由来
 
+在前端的开发场景中，异步操作是非常常见的，其中最常用的就是Ajax异步请求。Ajax请求时，我们需要等待它返回一个结果，这个时间是不定的，我们需要等待这个结果后才知道该如何进行下一步操作。
+
+为了等待获取Ajax请求的结果，在没有Promise之前，我们都是使用回调函数来处理的：
+
+```javascript
+const url = 'https://nf.com/getResult/';
+let result;
+
+const XHR = new XMLHttpRequest();
+XHR.open('GET', url, true);
+XHR.send(); // 发起请求
+
+XHR.onreadystatechange = () => {
+    if (XHR.readystate === 4) {
+        if (XHR.status === 200) {
+            result = XHR.response;
+        }
+    }
+}
+```
+
+
+
+
+
+
+
 在Promise出现之前，使用回调函数实现异步操作是唯一的方法，但是回调函数本身容易出现回调地狱，并且不便于复用代码。
 
 于是，大家就开始思考有没有一种写法，能够像同步操作一样的调用异步操作，使得代码纵向发展而非横向发展。
@@ -21,7 +48,7 @@ Promise实际上是一个对象，由new Promise()构造函数返回。
 具体的语法：
 
 ```javascript
-let p1 = new Promise(function(resolve, reject));
+new Promise(function(resolve, reject));
 ```
 
 在new Promise()构造函数中，需要传入一个函数，这个函数有两个参数，一个是resolve函数，一个是reject函数.
@@ -59,18 +86,14 @@ let p1 = new Promise((success, fail) => {
 
 Promise对象有三种状态，它必然处于这三种状态之一：
 
-- 初始状态pending
-- 成功状态fulfilled
-- 失败状态rejected
+- pending：等待状态
+- fulfilled：已经完成，表示得到了我们想要的结果，可以继续往下执行
+- rejected：也表示得到结果，但是由于结果并非我们所愿，因此拒绝执行
 
-这三种状态只能按照下面的规则变化，且状态的变化是不可逆的：
+这三种状态只能按照下面的规则变化，不受外界影响，且状态的变化是不可逆的：
 
 - pending -> fulfilled
 - pending -> rejected
-
-
-
-
 
 
 
@@ -90,11 +113,7 @@ Promise对象有三种状态，它必然处于这三种状态之一：
 
 ### Promise的约定
 
-Promise
 
-
-
-### 
 
 
 
