@@ -102,15 +102,71 @@ c4.showAge(); // 30
 
 
 
-## 方法四：原型式继承（与原型链继承相似）
+## 方法四：原型式继承
+
+本质：仍然是利用原型链来实现继承。当有一个对象A，并希望在它的基础上再创建多个对象，这个A对象中的所有属性都会被由它创建的子对象所共享。
+
+```javascript
+function createObject(o) {
+    function F() {} // 声明一个空构造函数
+    F.prototype = o; // 将这个构造函数的原型对象指向传入的对象o
+    return new F(); // 返回一个F函数new出来的对象，那么这个对象的原型必然就是o
+}
+
+const parent = {
+    name: 'parent',
+    members: [1, 2, 3]
+};
+
+// 创建了c1和c2这两个子对象后，它们就有了parent的name和members属性
+const c1 = createObject(parent);
+const c2 = createObject(parent);
+
+c1.name = 'c1'; // 在c1对象上加上了name属性，则在c1上的name属性就会先查找到c1本身的name属性了，不会找到parent身上去（这里是原型链的知识），但不会影响c2.name
+c1.members.push(4); // 这里只是给c1.members增加了一个元素，并没有覆盖parent.members（不是重新赋值），所以会影响到c2.members
+console.log(c1.name, c1.members); // c1 [1, 2, 3, 4]
+console.log(c2.name, c2.members); // parent [1, 2, 3, 4]
+
+c1.members = []; // 这里是重新赋值，相当于在c1身上加了一个members属性，自然也就不会再查找到parent身上去了
+console.log(c1.name, c1.members); // c1 []
+console.log(c2.name, c2.members); // parent [1, 2, 3, 4]
+```
+
+在ES5中提供了Object.create()这个方法，就是将上述的createObject函数规范化了。
 
 
 
-## 方法五：寄生式继承
+## 方法五：寄生式继承（原型式继承的增强版）
+
+本质：在原型式继承上再增加了一步，就是可以给子类对象添加一些新方法。
+
+```javascript
+function createObject(o) {
+    function F() {} // 声明一个空构造函数
+    F.prototype = o; // 将这个构造函数的原型对象指向传入的对象o
+    return new F(); // 返回一个F函数new出来的对象，那么这个对象的原型必然就是o
+}
+
+function enhanceObject(o) {
+    const clone = createObject(o);
+    clone.say = function() {} // 在原型式继承的基础上给新对象clone增加了一个say方法
+    return clone;
+}
+```
 
 
 
-## 方法六：寄生组合式继承
+## 方法六：寄生组合式继承（最佳方案）
+
+本质：是寄生式继承的增加版。与组合继承方案相比，组合继承方案需要调用两次父类构造函数，而寄生式继承改进了这点，所以在效率上有提升。
+
+```javascript
+function inheritObject(parent) {
+    
+}
+```
 
 
+
+# ES6中的class、extends、implements
 
