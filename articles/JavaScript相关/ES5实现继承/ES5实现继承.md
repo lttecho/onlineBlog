@@ -1,6 +1,6 @@
 # ES5的6种实现继承方法
 
-## 方法一：构造函数继承
+## 方法一：盗用构造函数继承
 
 本质：通过改变父类构造函数中的this指向，来实现子类继承父类的属性（注意只能继承父类中的属性，不能继承父类原型链上的属性）
 
@@ -168,5 +168,75 @@ function inheritObject(parent) {
 
 
 
-# ES6中的class、extends、implements
+## 总结
+
+<table>
+    <thead>
+        <tr>
+            <th>实现继承的方法</th>
+            <th>优点</th>
+            <th>缺点</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>构造函数继承</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>原型链继承</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>组合继承</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>原型式继承</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>寄生式继承</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>寄生组合式继承（最优方案）</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
+# ES6中继承实现
+
+## class
+
+## extends
+
+
+
+## implements
+
+
+
+## new一个对象时发生了什么
+
+1、在内存中创建一个新对象
+
+2、这个新对象内部的[[Prototype]]特性被赋值为构造函数的prototype属性
+
+3、构造函数内部的this被赋值为这个新对象（即this指向新对象）
+
+4、执行构造函数内部的代码（给新对象添加属性）
+
+5、如果构造函数返回非空对象，则返回该对象；否则返回刚刚创建的新对象
 
