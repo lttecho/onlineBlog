@@ -303,28 +303,38 @@ class Promise {
 
 
 
-## 原型方法实现
-
-
-
-
-
-## 静态方法实现
-
-
-
-
-
 ## 测试
 
-如何确定我们实现的Promise符合标准呢？Promise有一个配套的[测试脚本](https://github.com/promises-aplus/promises-tests)，只需要我们在一个CommonJS的模块中暴露一个deferred方法（即exports.deferred方法），就可以了，代码见上述代码的最后。然后执行如下代码即可执行测试
+如何确定自己实现的Promise符合标准呢？Promise有一个官方配套的[测试脚本](https://github.com/promises-aplus/promises-tests)，名为promises-aplus-tests，然后进行下面的操作即可。
 
 
 
+1、实现deferred方法
+
+```javascript
+Promise.deferred = function() {
+  let result = {};
+  result.promise = new Promise((resolve, reject) => {
+    result.resolve = resolve;
+    result.reject = reject;
+  });
+
+  return result;
+}
+```
 
 
 
+2、安装promises-aplus-tests，并在scripts中添加相应的命令
 
-实现过程
+```javascript
+{
+  "devDependencies": {
+    "promises-aplus-tests": "^2.1.2"
+  },
+  "scripts": {
+    "test": "promises-aplus-tests Promise"
+  }
+}
+```
 
-1、 
